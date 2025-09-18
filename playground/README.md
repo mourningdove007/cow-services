@@ -53,6 +53,7 @@ wallet! Failure to do this may result in unexpected behaviour due to `nonce` iss
    b. For Metamask,
    follow [these instructions](https://support.metamask.io/hc/en-us/articles/360015488891-How-to-clear-your-account-activity-reset-account)
    to reset your account.
+   <!-- Link no longer exists. Recommend update? -->
 
 ### Try another network
 
