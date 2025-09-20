@@ -1,6 +1,7 @@
 from eth_account import Account
 from eth_account.datastructures import SignedMessage
 import time
+import json
 
 
 ## see https://docs.cow.fi/cow-protocol/reference/core/signing-schemes
@@ -8,7 +9,7 @@ import time
 DOMAIN_DATA = {
     "name": "Gnosis Protocol",
     "version": "v2",
-    "chainId": 31337,
+    "chainId": 1,
     "verifyingContract": "0x9008D19f58AAbD9eD0D60971565AA8510560ab41"
 }
 
@@ -50,7 +51,7 @@ ORDER_DATA = {
 
 
 acct :Account = Account.from_key(
-0xa25c7db31feed9122727bf0939dc769a96564b2de4c4726d035b36ecf1e5b364)
+0x7c852118294e51e653712a81e05800f419141751be58f605c371e15141b007a6)
 
 signed_message:SignedMessage = acct.sign_typed_data(
     domain_data=DOMAIN_DATA, 
@@ -67,4 +68,10 @@ request_body["signature"] = signature_hex
 
 print(f"Generated Signature:\n{signature_hex}")
 print(f"Generated Request Body: {request_body}")
+
+json_string = json.dumps(request_body, indent=4)
+
+print("--- JSON String Output ---")
+print(json_string)
+
 
