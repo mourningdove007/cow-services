@@ -46,7 +46,7 @@ ORDER_DATA = {
     "partiallyFillable": False,
     "sellTokenBalance": "erc20",
     "buyTokenBalance": "erc20",
-    "appData": "0xc85ef7d79691fe79573b1a7064c19c1a9819ebdbd1faaab1a8ec92344438aaf4", ## keccak256("cow")
+    "appData": "0x1ba2c7f5680dd17a4d852b9c590afa0969893c2b1052a7f553542697f5668171",
 }
 
 
