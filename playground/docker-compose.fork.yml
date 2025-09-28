@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.chain
-    restart: always
+    # restart: always
     entrypoint: /usr/local/bin/anvil
     command: --fork-url ${ETH_RPC_URL} --block-time 100
     environment:
@@ -32,7 +32,7 @@ services:
 
   db:
     image: postgres
-    restart: always
+    # restart: always
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
@@ -45,7 +45,7 @@ services:
 
   adminer:
     image: adminer
-    restart: always
+    # restart: always
     ports:
       - 8082:8080
     depends_on:
@@ -67,7 +67,7 @@ services:
       context: ../
       target: orderbook
       dockerfile: ./Dockerfile
-    restart: always
+    # restart: always
     environment:
       - NODE_URL=http://chain:8545
       - DB_URL=postgres://db:5432/?user=${POSTGRES_USER}&password=${POSTGRES_PASSWORD}
@@ -96,7 +96,7 @@ services:
       context: ../
       target: autopilot
       dockerfile: ./Dockerfile
-    restart: always
+    # restart: always
     environment:
       - DB_URL=postgres://db:5432/?user=${POSTGRES_USER}&password=${POSTGRES_PASSWORD}
       - LOG_FILTER=warn,autopilot=info,shared=info,shared::price_estimation=info
@@ -129,7 +129,7 @@ services:
       context: ../
       target: driver
       dockerfile: ./Dockerfile
-    restart: always
+    # restart: always
     command: --config /driver.toml
     environment:
       - ETHRPC=http://chain:8545
@@ -146,32 +146,32 @@ services:
         condition: service_healthy
 
   # baseline (solver engine)
-  baseline:
-    build:
-      context: ../
-      target: solvers
-      dockerfile: ./Dockerfile
+  # baseline:
+  #   build:
+  #     context: ../
+  #     target: solvers
+  #     dockerfile: ./Dockerfile
     restart: always
-    command: baseline --config /baseline.toml
-    environment:
-      - ADDR=0.0.0.0:80
-      - LOG=solvers=trace,shared=trace
-      - RUST_BACKTRACE=1
-      - TOML_TRACE_ERROR=1
-    volumes:
-      - ./baseline.toml:/baseline.toml
-    ports:
-      - 9001:80
+  #   command: baseline --config /baseline.toml
+  #   environment:
+  #     - ADDR=0.0.0.0:80
+  #     - LOG=solvers=trace,shared=trace
+  #     - RUST_BACKTRACE=1
+  #     - TOML_TRACE_ERROR=1
+  #   volumes:
+  #     - ./baseline.toml:/baseline.toml
+  #   ports:
+  #     - 9001:80
 
-  frontend:
-    build:
-      context: .
-      dockerfile: Dockerfile.cowswap
-      args:
-        - CHAIN=$CHAIN
-        - ETH_RPC_URL=http://127.0.0.1:8545
-    ports:
-      - 8000:80
+  # frontend:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.cowswap
+  #     args:
+  #       - CHAIN=$CHAIN
+  #       - ETH_RPC_URL=http://127.0.0.1:8545
+  #   ports:
+  #     - 8000:80
 
   explorer:
     build:
@@ -183,22 +183,22 @@ services:
     ports:
       - 8001:80
 
-  tempo:
-    image: grafana/tempo:latest
-    ports:
-      - "4317:4317" # OTLP gRPC
-    command: [ "-config.file=/etc/tempo.yaml" ]
-    volumes:
-      - ./tempo.yaml:/etc/tempo.yaml
+  # tempo:
+  #   image: grafana/tempo:latest
+  #   ports:
+  #     - "4317:4317" # OTLP gRPC
+  #   command: [ "-config.file=/etc/tempo.yaml" ]
+  #   volumes:
+  #     - ./tempo.yaml:/etc/tempo.yaml
 
-  grafana:
-    image: grafana/grafana:latest
-    ports:
-      - "3000:3000"
-    environment:
-      - GF_AUTH_ANONYMOUS_ENABLED=true
-      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
-      - GF_AUTH_DISABLE_LOGIN_FORM=true
+  # grafana:
+  #   image: grafana/grafana:latest
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     - GF_AUTH_ANONYMOUS_ENABLED=true
+  #     - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+  #     - GF_AUTH_DISABLE_LOGIN_FORM=true
 
 volumes:
   postgres:
