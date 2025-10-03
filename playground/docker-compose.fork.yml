@@ -151,7 +151,7 @@ services:
   #     context: ../
   #     target: solvers
   #     dockerfile: ./Dockerfile
-    restart: always
+    # restart: always
   #   command: baseline --config /baseline.toml
   #   environment:
   #     - ADDR=0.0.0.0:80
