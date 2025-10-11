@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile.chain
     # restart: always
     entrypoint: /usr/local/bin/anvil
-    command: --fork-url ${ETH_RPC_URL} --block-time 100
+    command: --fork-url ${ETH_RPC_URL} --block-time 10
     environment:
       - ANVIL_IP_ADDR=0.0.0.0
     ports:
@@ -146,22 +146,22 @@ services:
         condition: service_healthy
 
   # baseline (solver engine)
-  # baseline:
-  #   build:
-  #     context: ../
-  #     target: solvers
-  #     dockerfile: ./Dockerfile
-    # restart: always
-  #   command: baseline --config /baseline.toml
-  #   environment:
-  #     - ADDR=0.0.0.0:80
-  #     - LOG=solvers=trace,shared=trace
-  #     - RUST_BACKTRACE=1
-  #     - TOML_TRACE_ERROR=1
-  #   volumes:
-  #     - ./baseline.toml:/baseline.toml
-  #   ports:
-  #     - 9001:80
+  baseline:
+    build:
+      context: ../
+      target: solvers
+      dockerfile: ./Dockerfile
+    restart: always
+    command: baseline --config /baseline.toml
+    environment:
+      - ADDR=0.0.0.0:80
+      - LOG=solvers=trace,shared=trace
+      - RUST_BACKTRACE=1
+      - TOML_TRACE_ERROR=1
+    volumes:
+      - ./baseline.toml:/baseline.toml
+    ports:
+      - 9001:80
 
   # frontend:
   #   build:

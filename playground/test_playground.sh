@@ -20,13 +20,13 @@ APPDATA='{"version":"1.3.0","metadata":{}}'
 # all funds sent to this account will be stolen immediately.
 PRIVATE_KEY="0x2a871d0798f97d79848a013d4936a73bf4cc922c825d33c1cf7073dff6d409c6"
 
-# Wait for 2 minutes for all services are read
-echo "Waiting until all services are ready"
-curl --retry 24 --retry-delay 5 --retry-all-errors --fail-with-body -s --show-error \
-  -H 'accept:application/json' \
-  http://$HOST/api/v1/token/$BUY_TOKEN/native_price > /dev/null
+# # Wait for 2 minutes for all services are read
+# echo "Waiting until all services are ready"
+# curl --retry 24 --retry-delay 5 --retry-all-errors --fail-with-body -s --show-error \
+#   -H 'accept:application/json' \
+#   http://$HOST/api/v1/token/$BUY_TOKEN/native_price > /dev/null
 
-# Run test flow
+# # Run test flow
 echo "Using private key:" $PRIVATE_KEY
 receiver=$(cast wallet address $PRIVATE_KEY)
 
